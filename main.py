@@ -17,6 +17,11 @@ ENTRY = (
 
 
 def main() -> None:
+    # Guard the bounty gate: 1-240 characters, not only whitespace.
+    if not 1 <= len(ENTRY) <= 240 or not ENTRY.strip():
+        raise SystemExit(
+            f"entry must be 1-240 non-whitespace characters, got {len(ENTRY)}"
+        )
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(ENTRY)
